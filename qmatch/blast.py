@@ -7,6 +7,7 @@ from hirlite import Rlite
 from vedis import Vedis
 from boltons.iterutils import windowed_iter
 from spooky import hash32
+from collections import defaultdict
 
 
 class BlastRlite:
@@ -77,3 +78,38 @@ class BlastVedis:
         key = hash32('.'.join(ngram))
 
         return self.index.smembers(key)
+
+
+class BlastMem:
+
+    def __init__(self):
+
+        """
+        Set the dictionary.
+        """
+
+        self.index = defaultdict(set)
+
+    def index_text(self, text: str, identifier: str, n: int):
+
+        """
+        Index N-grams for a text.
+        """
+
+        tokens = re.findall('[a-z]+', text.lower())
+
+        for phrase in windowed_iter(tokens, n):
+
+            key = hash32('.'.join(phrase))
+
+            self.index[key].add(identifier)
+
+    def lookup(self, ngram: List[str]):
+
+        """
+        Get text ids for an ngram.
+        """
+
+        key = hash32('.'.join(ngram))
+
+        return self.index.get(key)
