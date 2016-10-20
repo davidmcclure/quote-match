@@ -6,3 +6,4 @@ hirlite
 vedis
 boltons
 spooky
+bsddb3
