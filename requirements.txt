@@ -1,3 +1,7 @@
 
 ipython
 jupyter
+wordfreq
+hirlite
+boltons
+spooky
