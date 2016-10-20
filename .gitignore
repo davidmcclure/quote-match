@@ -92,3 +92,4 @@ ENV/
 # quote-match
 *.rlite
 *.vedis
+*.blast
