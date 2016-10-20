@@ -3,5 +3,6 @@ ipython
 jupyter
 wordfreq
 hirlite
+vedis
 boltons
 spooky

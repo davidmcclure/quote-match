@@ -91,3 +91,4 @@ ENV/
 
 # quote-match
 *.rlite
+*.vedis
