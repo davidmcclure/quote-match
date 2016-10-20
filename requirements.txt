@@ -7,3 +7,7 @@ vedis
 boltons
 spooky
 bsddb3
+sqlalchemy
+PyYAML
+anyconfig
+invoke
