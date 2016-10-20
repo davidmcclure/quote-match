@@ -9,6 +9,7 @@ from hirlite import Rlite
 from vedis import Vedis
 from boltons.iterutils import windowed_iter
 from spooky import hash32
+from bsddb3 import db
 
 
 class BlastRlite:
@@ -153,3 +154,30 @@ class BlastShelve:
         key = str(hash32('.'.join(ngram)))
 
         return self.index.get(key)
+
+
+class BlastBDB:
+
+    def __init__(self, path: str):
+
+        """
+        Set the dictionary.
+        """
+
+        self.index = db.DB()
+
+        self.index.open(path, None, db.DB_HASH, db.DB_CREATE)
+
+    def add(self, text: str, identifier: str, n: int):
+
+        """
+        Index N-grams for a text.
+        """
+
+        tokens = re.findall('[a-z]+', text.lower())
+
+        for phrase in windowed_iter(tokens, n):
+
+            key = bytes(hash32('.'.join(phrase)))
+
+            self.index.put(key, identifier)
