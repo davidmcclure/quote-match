@@ -1,6 +1,8 @@
 
 
-from wordfreq import top_n_list
+from .config import Config
 
 
-stopwords = set(top_n_list('en', 200))
+config = Config.from_env()
+
+stopwords = config.build_stopwords()

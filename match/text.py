@@ -1,6 +1,7 @@
 
 
 import re
+import bz2
 
 from difflib import SequenceMatcher
 
@@ -10,14 +11,27 @@ from match.singletons import stopwords
 class Text:
 
     @classmethod
-    def from_file(cls, path: str):
+    def from_txt(cls, path: str):
 
         """
-        Read from a file.
+        Read from a text file.
         """
 
         with open(path) as fh:
             return cls(fh.read())
+
+    @classmethod
+    def from_stacks(cls, path: str):
+
+        """
+        Read from a Stacks archive file.
+        """
+
+        with bz2.open(path, 'rt') as fh:
+
+            text = json.loads(fh.read())
+
+            return cls(text['plain_text'])
 
     def __init__(self, text: str):
 
