@@ -5,7 +5,7 @@ import bz2
 
 from difflib import SequenceMatcher
 
-from match.singletons import stopwords
+from quotes.singletons import stopwords
 
 
 class Text:
