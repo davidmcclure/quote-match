@@ -2,6 +2,8 @@
 
 import re
 
+from difflib import SequenceMatcher
+
 
 class Text:
 
@@ -27,3 +29,24 @@ class Text:
             (m.group(0), m.start(), m.end())
             for m in re.finditer('[a-z]+', text.lower())
         ]
+
+    def token_sequence(self):
+
+        """
+        Provide the raw sequence of tokens, without positions.
+        """
+
+        return [token for token, start, end in self.tokens]
+
+    def match(self, text):
+
+        """
+        Sequence match another text against this text.
+        """
+
+        s_tokens = self.token_sequence()
+        q_tokens = text.token_sequence()
+
+        matcher = SequenceMatcher(a=s_tokens, b=q_tokens)
+
+        yield from matcher.get_matching_blocks()
