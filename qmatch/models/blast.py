@@ -28,7 +28,7 @@ class BlastIndexer:
 
     def __init__(self):
         self.cache = []
-        self.tokens = set(top_n_list('en', 500))
+        self.tokens = set(top_n_list('en', 100))
 
     def add(self, text: str, identifier: str, n: int=4):
 
