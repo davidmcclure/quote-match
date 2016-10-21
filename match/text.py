@@ -43,7 +43,7 @@ class Text:
             if token not in stopwords
         ]
 
-    def match(self, text):
+    def match(self, text, min_size: int=5):
 
         """
         Sequence match another text against this text.
@@ -54,4 +54,6 @@ class Text:
 
         matcher = SequenceMatcher(a=s_tokens, b=q_tokens)
 
-        yield from matcher.get_matching_blocks()
+        for match in matcher.get_matching_blocks():
+            if match.size >= min_size:
+                yield match
