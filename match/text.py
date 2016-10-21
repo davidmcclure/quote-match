@@ -4,6 +4,8 @@ import re
 
 from difflib import SequenceMatcher
 
+from match.singletons import stopwords
+
 
 class Text:
 
@@ -36,7 +38,10 @@ class Text:
         Provide the raw sequence of tokens, without positions.
         """
 
-        return [token for token, start, end in self.tokens]
+        return [
+            token for token, start, end in self.tokens
+            if token not in stopwords
+        ]
 
     def match(self, text):
 
